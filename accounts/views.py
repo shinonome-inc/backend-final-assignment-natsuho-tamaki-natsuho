@@ -12,12 +12,12 @@ class SignupView(CreateView):
     template_name = "accounts/signup.html"
     success_url = reverse_lazy("tweets:home")  # リダイレクト先url貼付、success_url使用時遅延評価でurl逆引き
 
-    def from_valid(self, form):
+    def form_valid(self, form):
         response = super().form_valid(form)
-        username = form.cleaned_deta["username"]
-        password = form.cleaned_deta["password1"]   # passwordだとエラー、formのフィールドにpasswordというフィールドがない
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data[
+            "password1"
+        ]  # passwordだとエラー、formのフィールドにpasswordというフィールドがない
         user = authenticate(self.request, username=username, password=password)
         login(self.request, user)
         return response
-
-# エラー箇所あと一個？
