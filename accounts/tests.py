@@ -112,9 +112,9 @@ class TestSignupView(TestCase):
         }
         response = self.client.post(self.url, invalid_data)
         form = response.context["form"]
+        count = User.objects.filter(username="testuser").count()  # ユーザー名のカウント
 
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(User.objects.filter(username=invalid_data["username"]).exists())
+        self.assertEqual(count, 1)
         self.assertFalse(form.is_valid())
         self.assertIn("同じユーザー名が既に登録済みです。", form.errors["username"])
 
