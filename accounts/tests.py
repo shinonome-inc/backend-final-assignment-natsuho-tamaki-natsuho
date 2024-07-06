@@ -115,6 +115,7 @@ class TestSignupView(TestCase):
         count = User.objects.filter(username="testuser").count()  # ユーザー名のカウント
 
         self.assertEqual(count, 1)
+        self.assertEqual(response.status_code, 200)
         self.assertFalse(form.is_valid())
         self.assertIn("同じユーザー名が既に登録済みです。", form.errors["username"])
 
