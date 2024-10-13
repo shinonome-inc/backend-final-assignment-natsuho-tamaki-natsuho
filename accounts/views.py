@@ -3,7 +3,8 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
+
+# from .models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
 
@@ -34,7 +35,8 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         username = self.kwargs.get("username")
-        user = User.objects.get(username=username)
-        context["user"] = user
+        # user = User.objects.get(username=username)
+        # context["user"] = user
+        # user_profile.html でuserの変数未使用、この行は不要
         context["username"] = username
         return context
